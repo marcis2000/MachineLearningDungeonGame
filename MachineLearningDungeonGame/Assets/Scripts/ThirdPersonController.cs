@@ -78,7 +78,8 @@ namespace StarterAssets
 		// animation IDs
 		private int _animIDSpeed;
 		private int _animIDGrounded;
-		private int _animIDJump;
+		private int _animIDAttack;
+		private int _animIDDoubleAttack;
 		private int _animIDFreeFall;
 		private int _animIDMotionSpeed;
 
@@ -91,6 +92,9 @@ namespace StarterAssets
 		private const float _threshold = 0.01f;
 
 		private bool _hasAnimator;
+
+		private bool performingAttack;
+		private bool performingDoubleAttack;
 
 		private bool IsCurrentDeviceMouse => _playerInput.currentControlScheme == "KeyboardMouse";
 
@@ -121,7 +125,7 @@ namespace StarterAssets
 		{
 			_hasAnimator = TryGetComponent(out _animator);
 			
-			JumpAndGravity();
+			Attack();
 			GroundedCheck();
 			Move();
 		}
@@ -135,7 +139,8 @@ namespace StarterAssets
 		{
 			_animIDSpeed = Animator.StringToHash("Speed");
 			_animIDGrounded = Animator.StringToHash("Grounded");
-			_animIDJump = Animator.StringToHash("Jump");
+			_animIDAttack = Animator.StringToHash("Attack");
+			_animIDDoubleAttack = Animator.StringToHash("DoubleAttack");
 			_animIDFreeFall = Animator.StringToHash("FreeFall");
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
 		}
@@ -182,7 +187,7 @@ namespace StarterAssets
 
 			// note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
 			// if there is no input, set the target speed to 0
-			if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+			if (_input.move == Vector2.zero || performingAttack) targetSpeed = 0.0f;
 
 			// a reference to the players current horizontal velocity
 			float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
@@ -234,74 +239,50 @@ namespace StarterAssets
 			}
 		}
 
-		private void JumpAndGravity()
+		private void Attack()
 		{
-			if (Grounded)
-			{
-				// reset the fall timeout timer
-				_fallTimeoutDelta = FallTimeout;
-
-				// update animator if using character
-				if (_hasAnimator)
+            if (!performingDoubleAttack) {
+				if (_input.attack)
 				{
-					_animator.SetBool(_animIDJump, false);
-					_animator.SetBool(_animIDFreeFall, false);
+					_animator.SetBool(_animIDAttack, true);
+					performingAttack = true;
 				}
+			}
 
-				// stop our velocity dropping infinitely when grounded
-				if (_verticalVelocity < 0.0f)
-				{
-					_verticalVelocity = -2f;
-				}
 
-				// Jump
-				if (_input.jump && _jumpTimeoutDelta <= 0.0f)
-				{
-					// the square root of H * -2 * G = how much velocity needed to reach desired height
-					_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+		}
+		private void FinishAttack()
+        {
+            if (_input.attack)
+            {
+                _animator.SetBool(_animIDAttack, false);
+                _animator.SetBool(_animIDDoubleAttack, true);
+				performingDoubleAttack = true;
+            }
+            else
+            {
+				_animator.SetBool(_animIDAttack, false);
+				performingAttack = false;
+			}
 
-					// update animator if using character
-					if (_hasAnimator)
-					{
-						_animator.SetBool(_animIDJump, true);
-					}
-				}
-
-				// jump timeout
-				if (_jumpTimeoutDelta >= 0.0f)
-				{
-					_jumpTimeoutDelta -= Time.deltaTime;
-				}
+		}
+        private void FinishDoubleAttack()
+        {
+            if (_input.attack)
+            {
+				_animator.SetBool(_animIDDoubleAttack, false);
+				_animator.SetBool(_animIDAttack, true);
+				performingDoubleAttack = false;
 			}
 			else
-			{
-				// reset the jump timeout timer
-				_jumpTimeoutDelta = JumpTimeout;
-
-				// fall timeout
-				if (_fallTimeoutDelta >= 0.0f)
-				{
-					_fallTimeoutDelta -= Time.deltaTime;
-				}
-				else
-				{
-					// update animator if using character
-					if (_hasAnimator)
-					{
-						_animator.SetBool(_animIDFreeFall, true);
-					}
-				}
-
-				// if we are not grounded, do not jump
-				_input.jump = false;
-			}
-
-			// apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-			if (_verticalVelocity < _terminalVelocity)
-			{
-				_verticalVelocity += Gravity * Time.deltaTime;
+            {
+				_animator.SetBool(_animIDDoubleAttack, false);
+				performingAttack = false;
+				performingDoubleAttack = false;
 			}
 		}
+
+
 
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
 		{
