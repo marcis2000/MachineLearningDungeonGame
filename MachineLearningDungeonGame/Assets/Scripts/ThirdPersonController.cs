@@ -20,8 +20,8 @@ namespace StarterAssets
 		[Tooltip("Sprint speed of the character in m/s")]
 		public float SprintSpeed = 5.335f;
 		[Tooltip("How fast the character turns to face movement direction")]
-		[Range(0.0f, 0.3f)]
-		public float RotationSmoothTime = 0.12f;
+		[Range(0.0f, 0.5f)]
+		public float RotationSmoothTime = 0.2f;
 		[Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
 
@@ -93,6 +93,8 @@ namespace StarterAssets
 
 		private bool _hasAnimator;
 
+		[SerializeField] private GameObject sword;
+		private Collider swordCollider;
 		private bool performingAttack;
 		private bool performingDoubleAttack;
 
@@ -104,6 +106,7 @@ namespace StarterAssets
 			if (_mainCamera == null)
 			{
 				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+				swordCollider = sword.GetComponent<CapsuleCollider>();
 			}
 		}
 
@@ -126,14 +129,13 @@ namespace StarterAssets
 			_hasAnimator = TryGetComponent(out _animator);
 			
 			Attack();
-			GroundedCheck();
 			Move();
 		}
 
-		private void LateUpdate()
-		{
-			CameraRotation();
-		}
+		//private void LateUpdate()
+		//{
+		//	CameraRotation();
+		//}
 
 		private void AssignAnimationIDs()
 		{
@@ -145,43 +147,31 @@ namespace StarterAssets
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
 		}
 
-		private void GroundedCheck()
-		{
-			// set sphere position, with offset
-			Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
-			Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
 
-			// update animator if using character
-			if (_hasAnimator)
-			{
-				_animator.SetBool(_animIDGrounded, Grounded);
-			}
-		}
+        //private void CameraRotation()
+        //{
+        //	// if there is an input and camera position is not fixed
+        //	if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
+        //	{
+        //		//Don't multiply mouse input by Time.deltaTime;
+        //		float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-		private void CameraRotation()
-		{
-			// if there is an input and camera position is not fixed
-			if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
-			{
-				//Don't multiply mouse input by Time.deltaTime;
-				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
-				
-				_cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
-				_cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
-			}
+        //		_cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
+        //		_cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
+        //	}
 
-			// clamp our rotations so our values are limited 360 degrees
-			_cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
-			_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+        //	// clamp our rotations so our values are limited 360 degrees
+        //	_cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
+        //	_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 
-			// Cinemachine will follow this target
-			CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0.0f);
-		}
+        //	// Cinemachine will follow this target
+        //	CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0.0f);
+        //}
 
-		private void Move()
+        private void Move()
 		{
 			// set target speed based on move speed, sprint speed and if sprint is pressed
-			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+			float targetSpeed = SprintSpeed;//_input.sprint ? SprintSpeed : MoveSpeed;
 
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -301,6 +291,17 @@ namespace StarterAssets
 			
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+		}
+
+		private void TurnOnSwordCollider()
+        {
+			swordCollider.enabled = true;
+
+		}
+		private void TurnOffSwordCollider()
+        {
+			swordCollider.enabled = false;
+
 		}
 	}
 }
