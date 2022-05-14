@@ -106,7 +106,6 @@ namespace StarterAssets
 			if (_mainCamera == null)
 			{
 				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-				swordCollider = sword.GetComponent<CapsuleCollider>();
 			}
 		}
 
@@ -116,6 +115,8 @@ namespace StarterAssets
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 			_playerInput = GetComponent<PlayerInput>();
+			swordCollider = sword.GetComponent<CapsuleCollider>();
+
 
 			AssignAnimationIDs();
 
@@ -130,14 +131,15 @@ namespace StarterAssets
 			
 			Attack();
 			Move();
+
 		}
 
-		//private void LateUpdate()
-		//{
-		//	CameraRotation();
-		//}
+        //private void LateUpdate()
+        //{
+        //	CameraRotation();
+        //}
 
-		private void AssignAnimationIDs()
+        private void AssignAnimationIDs()
 		{
 			_animIDSpeed = Animator.StringToHash("Speed");
 			_animIDGrounded = Animator.StringToHash("Grounded");
@@ -150,22 +152,22 @@ namespace StarterAssets
 
         //private void CameraRotation()
         //{
-        //	// if there is an input and camera position is not fixed
-        //	if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
-        //	{
-        //		//Don't multiply mouse input by Time.deltaTime;
-        //		float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+        //    // if there is an input and camera position is not fixed
+        //    if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
+        //    {
+        //        //Don't multiply mouse input by Time.deltaTime;
+        //        float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-        //		_cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
-        //		_cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
-        //	}
+        //        _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
+        //        _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
+        //    }
 
-        //	// clamp our rotations so our values are limited 360 degrees
-        //	_cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
-        //	_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+        //    // clamp our rotations so our values are limited 360 degrees
+        //    _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
+        //    _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 
-        //	// Cinemachine will follow this target
-        //	CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0.0f);
+        //    // Cinemachine will follow this target
+        //    CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0.0f);
         //}
 
         private void Move()
@@ -183,7 +185,7 @@ namespace StarterAssets
 			float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
 			float speedOffset = 0.1f;
-			float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
+			float inputMagnitude = 1;// _input.analogMovement ? _input.move.magnitude : 1f;
 
 			// accelerate or decelerate to target speed
 			if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
@@ -219,7 +221,7 @@ namespace StarterAssets
 			Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
 			// move the player
-			_controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+			_controller.Move(targetDirection.normalized * (_speed * Time.deltaTime)); //+ new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime) ;
 
 			// update animator if using character
 			if (_hasAnimator)
