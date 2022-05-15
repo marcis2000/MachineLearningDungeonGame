@@ -152,7 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46017d6d80ff7a54e8d536545e463b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   rotation: {x: 140, y: 0, z: 0}
   isInUse: 0
 --- !u!4 &158896281
@@ -169,6 +168,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &166996947 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4697017240656324050, guid: 0331b169005eb1d469455efaa6b9024a, type: 3}
+  m_PrefabInstance: {fileID: 712899986}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &712899986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -281,7 +285,7 @@ MonoBehaviour:
   - {fileID: 1282115696}
   - {fileID: 1213508321}
   - {fileID: 1555775090}
-  dummy: {fileID: 0}
+  dummy: {fileID: 166996947}
   requiredDummies: 2
 --- !u!4 &1029314166
 Transform:
@@ -326,7 +330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46017d6d80ff7a54e8d536545e463b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   rotation: {x: 120, y: 0, z: 0}
   isInUse: 0
 --- !u!4 &1213508322
@@ -386,7 +389,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46017d6d80ff7a54e8d536545e463b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0}
   isInUse: 0
 --- !u!1 &1555775089
@@ -418,7 +420,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46017d6d80ff7a54e8d536545e463b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   rotation: {x: 60, y: 0, z: 0}
   isInUse: 0
 --- !u!4 &1555775091
@@ -687,6 +688,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46017d6d80ff7a54e8d536545e463b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   rotation: {x: 90, y: 0, z: 0}
   isInUse: 0
