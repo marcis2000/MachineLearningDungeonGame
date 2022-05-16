@@ -13,7 +13,7 @@ public class DummyScript : MonoBehaviour
 
     public event EventHandler addToCount;
 
-    private void Awake()
+    private void Start()
     {
         _animator = this.GetComponent<Animator>();
         dummyCapsuleCollider = this.GetComponent<CapsuleCollider>();
@@ -24,7 +24,6 @@ public class DummyScript : MonoBehaviour
     {
         if (!isDestroyed)
         {
-            Debug.Log(collision.collider.name);
             Vector3 collisionToDummy = (collision.transform.position - this.transform.position).normalized;
             if (collision.collider.name == "SwordPolyart" && Vector3.Dot(this.transform.forward, collisionToDummy) >= 0)
             {

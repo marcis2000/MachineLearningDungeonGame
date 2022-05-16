@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SwordScript : MonoBehaviour
 {
+    Cinemachine.CinemachineImpulseSource source;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,8 @@ public class SwordScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.collider);
+        source = GetComponent < Cinemachine.CinemachineImpulseSource>();
+
+        source.GenerateImpulse(Camera.main.transform.forward);
     }
 }
