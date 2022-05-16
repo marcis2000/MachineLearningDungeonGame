@@ -14,18 +14,20 @@ namespace StarterAssets
 
 	public class ThirdPersonController_2 : MonoBehaviour
 	{
-		[SerializeField] private GameObject sword;
-		private Collider swordCollider;
+		//[SerializeField] private GameObject sword;
+		private CapsuleCollider swordCollider;
 
+		[SerializeField] private GameObject sword;
 		[SerializeField] private float backwardSpeed = 3.0f;
 		[SerializeField] private float runningSpeed = 7.0f;
 		[SerializeField] private float speedChangeRate = 10.0f;
-		[SerializeField] private float rotationSmoothTimeWalk = 0.3f;
+		[SerializeField] private float rotationSmoothTimeWalk = 0.7f;
 
 		private float rotationSmoothTime;
 		private float _speed;
 		private float turnSmoothVelocity;
 		private float  targetSpeed;
+		private float angle;
 
 		private PlayerInput _playerInput;
 		private Animator _animator;
@@ -130,11 +132,20 @@ namespace StarterAssets
 			Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
 			if (_input.move != Vector2.zero)
 			{
-				float targetAngle = Mathf.Atan2(_input.move.x, 0f) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
-				float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, rotationSmoothTime);
-				transform.rotation = Quaternion.Euler(0f, angle, 0f);
+				float targetAngle = Mathf.Atan2(_input.move.x , 0f) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
 
-				if(_input.move.x != 0 && _input.move.y == 0)
+				angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, rotationSmoothTime);
+				if (_input.move.x == 0)
+				{
+					transform.rotation = Quaternion.Euler(0f,transform.eulerAngles.y,0f);
+				}
+				else
+                {
+					transform.rotation = Quaternion.Euler(0f, angle, 0f);
+				}
+
+
+				if (_input.move.x != 0 && _input.move.y == 0)
                 {
 					 moveDirection = Quaternion.Euler(0f, angle, 0f) * Vector3.zero;
 					_animator.SetBool(_animIDIsTurning, true);
