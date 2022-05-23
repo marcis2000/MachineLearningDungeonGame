@@ -7197,7 +7197,7 @@ PrefabInstance:
       objectReference: {fileID: 487054342}
     - target: {fileID: 2070925441746177913, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_Priority
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177913, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_Lens.Dutch
@@ -30107,7 +30107,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8944336655422409496, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: field of view
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409496, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: far clip plane
@@ -30139,19 +30139,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 21.375
+      value: 1.375
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 19.351238
+      value: 17.644037
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalRotation.y
@@ -32398,6 +32398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f02bf3eb86425ca4886d144d3a4764b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dissolveMaterial: {fileID: 0}
 --- !u!1 &959824403382381658
 GameObject:
   m_ObjectHideFlags: 0
@@ -32520,6 +32521,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4140921677726639531, guid: 9a21d93a2f3c3914b9beb1aab7a7e73d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 53405847abfaac84cb45cd7eb52dce90, type: 2}
+    - target: {fileID: 4140921679345368801, guid: 9a21d93a2f3c3914b9beb1aab7a7e73d, type: 3}
+      propertyPath: dissolveMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: aa66e78e47d0fbd468fd1e9566ffcb31, type: 2}
     - target: {fileID: 4140921679345368803, guid: 9a21d93a2f3c3914b9beb1aab7a7e73d, type: 3}
       propertyPath: m_RootOrder
       value: 30
