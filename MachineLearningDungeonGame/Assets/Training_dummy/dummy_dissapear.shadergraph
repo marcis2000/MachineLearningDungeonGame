@@ -291,6 +291,20 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
+                    "m_Id": "c874290c81814dfb979d2a3f47a91fa1"
+                },
+                "m_SlotId": 1
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "d5c4dc7fafa440c595900c496ec1196d"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
                     "m_Id": "d45693c2135946949ad8ee7ab0c98954"
                 },
                 "m_SlotId": 0
@@ -525,7 +539,7 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2138.0,
+            "x": -2139.0,
             "y": 544.0,
             "width": 208.0,
             "height": 302.0
@@ -1768,7 +1782,7 @@
     "m_ShaderOutputName": "A",
     "m_StageCapability": 3,
     "m_Value": {
-        "x": -0.699999988079071,
+        "x": 0.0,
         "y": 0.0,
         "z": 0.0,
         "w": 0.0
@@ -1790,13 +1804,13 @@
     },
     "m_Name": "Dissolve intensity",
     "m_DefaultReferenceName": "Vector1_80c7493154fc42b3ad3dd18f1ba14205",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "Dissolve_intensity",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
+    "hlslDeclarationOverride": 2,
     "m_Hidden": false,
-    "m_Value": 0.0,
+    "m_Value": -0.7400000095367432,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
@@ -2543,9 +2557,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2669.0,
-            "y": 426.0,
-            "width": 126.0,
+            "x": -2888.0,
+            "y": 781.0,
+            "width": 125.99999237060547,
             "height": 173.0
         }
     },
@@ -2645,8 +2659,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2711.000244140625,
-            "y": 870.0000610351563,
+            "x": -2383.0,
+            "y": 611.0,
             "width": 168.0,
             "height": 34.0
         }
@@ -2695,8 +2709,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2397.0,
-            "y": 797.0000610351563,
+            "x": -2572.0,
+            "y": 767.0,
             "width": 208.0,
             "height": 326.0
         }

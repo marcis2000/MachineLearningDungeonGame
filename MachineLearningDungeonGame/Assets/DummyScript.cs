@@ -15,7 +15,7 @@ public class DummyScript : MonoBehaviour
 
     private Transform dummyGFX;
     private SkinnedMeshRenderer renderer;
-    [SerializeField] private float disolveSpeed = 0.001f;
+    private float disolveSpeed = 1.5f;
 
     public event EventHandler addToCount;
 
@@ -27,8 +27,23 @@ public class DummyScript : MonoBehaviour
         renderer = dummyGFX.GetComponent<SkinnedMeshRenderer>();
         renderer.enabled = true;
         hitCount = 0;
-        dissolveAmount = -1.25f;
-        Debug.Log(dummyGFX);
+        dissolveAmount =  -1.85f;
+    }
+
+    private void FixedUpdate()
+    {
+        if (isDestroyed)
+        {
+            if (dissolveAmount < 0.5f)
+            {
+                dissolveAmount = dissolveAmount + Time.deltaTime * disolveSpeed;
+                dissolveMaterial.SetFloat("Dissolve_intensity", dissolveAmount);
+            }
+            else
+            {
+                this.gameObject.SetActive(false);
+            }
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -47,10 +62,9 @@ public class DummyScript : MonoBehaviour
                 else
                 {
                     renderer.material = dissolveMaterial;               
-                    //_animator.SetBool("Destroyed", true);
-                    StartCoroutine(DeadCoroutine());
-                    isDestroyed = true;
                     addToCount?.Invoke(this, EventArgs.Empty);
+                    isDestroyed = true;
+
                 }
             }
         }
@@ -62,16 +76,5 @@ public class DummyScript : MonoBehaviour
         _animator.SetBool("Pushed", false);
 
     }
-    IEnumerator DeadCoroutine()
-    {
-        yield return new WaitForSeconds(2f);
-        //this.gameObject.SetActive(false);
-        _animator.SetBool("Dead", false);
-        if(dissolveAmount < 1) 
-        {
-            dissolveAmount = dissolveAmount + Time.deltaTime * disolveSpeed;
-            dissolveMaterial.SetFloat("Dissolve intensity", dissolveAmount);
-        }
 
-    }
 }
