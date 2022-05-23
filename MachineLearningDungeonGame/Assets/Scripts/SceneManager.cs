@@ -23,6 +23,10 @@ public class SceneManager : MonoBehaviour
             dummySpawnPoints.RemoveAt(randomVal);
         }
         Destroy(dummy);
+    }
+    private void Update()
+    {
         
     }
+
 }
