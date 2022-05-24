@@ -61,6 +61,8 @@ public class DummyScript : MonoBehaviour
                 }
                 else
                 {
+                    _animator.SetBool("Pushed", true);
+                    StartCoroutine(PushedCoroutine());
                     renderer.material = dissolveMaterial;               
                     addToCount?.Invoke(this, EventArgs.Empty);
                     isDestroyed = true;

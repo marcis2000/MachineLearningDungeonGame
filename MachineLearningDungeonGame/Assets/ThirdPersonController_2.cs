@@ -158,6 +158,7 @@ namespace StarterAssets
 				{
 					 moveDirection = Quaternion.Euler(0f, angle, 0f) * Vector3.forward;
 				}
+				_controller.SimpleMove(Vector3.forward * 0);
 				_controller.Move(moveDirection.normalized * _speed * Time.deltaTime);
 
 			}
