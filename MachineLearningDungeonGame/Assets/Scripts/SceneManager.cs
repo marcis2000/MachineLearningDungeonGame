@@ -7,7 +7,7 @@ using TMPro;
 public class SceneManager : MonoBehaviour
 {
     private DummyScript dummyScript;
-   // private List<DummyScript> dummyScripts = new List<DummyScript>();
+    // private List<DummyScript> dummyScripts = new List<DummyScript>();
     public List<SpawnPoint> dummySpawnPoints;
     public GameObject dummy;
     public GameObject newDummy;
@@ -17,14 +17,12 @@ public class SceneManager : MonoBehaviour
     private int currentPoints;
     private Vector3 position, rotation;
     [SerializeField] TextMeshProUGUI currentDummies;
-    [SerializeField] TextMeshProUGUI allDummies;
-
 
     System.Random rnd = new System.Random();
     private void Awake()
     {
         if (requiredDummies > dummySpawnPoints.Count) return;
-        for(int i = 0; i<requiredDummies; i++)
+        for (int i = 0; i < requiredDummies; i++)
         {
             randomVal = rnd.Next(0, dummySpawnPoints.Count);
             rotation = dummySpawnPoints[randomVal].GetComponent<SpawnPoint>().rotation;
@@ -33,7 +31,8 @@ public class SceneManager : MonoBehaviour
             //dummyScripts.Add(dummyScript);
             dummyScript.OnAddToCount += AddToCount;
             dummySpawnPoints.RemoveAt(randomVal);
-            allDummies.text = requiredDummies.ToString();
+            currentDummies.text = currentPoints.ToString() + "/" + requiredDummies.ToString();
+
         }
         Destroy(dummy);
     }
@@ -41,6 +40,7 @@ public class SceneManager : MonoBehaviour
     private void AddToCount(object sender, EventArgs e)
     {
         currentPoints++;
-        currentDummies.text = currentPoints.ToString();
+        currentDummies.text = currentPoints.ToString() + "/" + requiredDummies.ToString();
     }
+    
 }
