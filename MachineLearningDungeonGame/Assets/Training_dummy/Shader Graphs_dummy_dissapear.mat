@@ -36,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Dissolve_intensity: 0.2199987
+    - Dissolve_intensity: 0.51999867
     - Vector1_295721e4638c434284498c00a0aa302f: 4
     - Vector1_80c7493154fc42b3ad3dd18f1ba14205: -2.11
     - Vector1_c74d2ff8f0d8429887d422bce0ec5747: 600

@@ -17,7 +17,7 @@ public class DummyScript : MonoBehaviour
     private SkinnedMeshRenderer renderer;
     private float disolveSpeed = 1.5f;
 
-    public event EventHandler addToCount;
+    public event EventHandler OnAddToCount;
 
     private void Start()
     {
@@ -63,8 +63,8 @@ public class DummyScript : MonoBehaviour
                 {
                     _animator.SetBool("Pushed", true);
                     StartCoroutine(PushedCoroutine());
-                    renderer.material = dissolveMaterial;               
-                    addToCount?.Invoke(this, EventArgs.Empty);
+                    renderer.material = dissolveMaterial;
+                    OnAddToCount?.Invoke(this, EventArgs.Empty);
                     isDestroyed = true;
 
                 }
